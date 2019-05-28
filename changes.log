@@ -1,3 +1,8 @@
+Version 1.2
+===========
+* 28/05/2019: Added support for multiple tables in same page.
+* 28/05/2019: Added extended column configuration to support different input types.
+
 Version 1.1
 ===========
 * 21/01/2017: Adden the event onBeforeDelete().

@@ -1,7 +1,3 @@
-## Donate to the project
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=7LKYWG9LXNQ9C&lc=ES&item_name=Tito%20Hinostroza&item_number=2153&no_note=0&cn=Dar%20instrucciones%20especiales%20al%20vendedor%3a&no_shipping=2&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
-
 # Bootstable
 Javascript library to make HMTL tables editable, using Bootstrap
 
@@ -37,6 +33,24 @@ Sets the columns 0 and 1 of #mytable editable:
                     columnsEd: "0,1" //editable columns 
       });
 
+Make the second column a dropdown when in edit mode:
+
+      $('#mytable').SetEditable({
+                    columnsConfig: [{
+                        index: 1,
+                        input: function (existingValue) {
+                              return `<select id="encodeUrl">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    </select>
+                                    <script>$("#encodeUrl").val("`+ existingValue + `");<\/script>`;
+                        },
+                        value: function () {
+                              return $('#encodeUrl').val();
+                        }
+                  }
+      });
+
 Includes a "New row" button:
 
       $('#mytable').SetEditable({
@@ -54,11 +68,10 @@ If several tables need to be editable in a same Web page, it's needed to set eac
       $('#mytable1').SetEditable();
       $('#mytable2').SetEditable();
 
-LIMITATION: When using several editable tables, events won't work properly.
-
 Parameters:
 
         columnsEd: null,         //Index to editable columns. If null all td editables. Ex.: "1,2,3,4,5"
+        columnsConfig: null,     //Array of objects with index, input and value properties 
         $addButton: null,        //Jquery object of "Add" button
         onEdit: function() {},   //Called after edition
         onBeforeDelete: function() {}, //Called before deletion
